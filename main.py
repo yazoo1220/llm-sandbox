@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_chat import message
 import os
 
-os.environ['OPENAI_API_KEY']='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'
+os.environ['OPENAI_API_KEY']='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'
 
 from langchain.chains import ConversationChain
 from langchain.llms import OpenAI
