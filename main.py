@@ -27,7 +27,7 @@ def load_agent():
     agent = initialize_agent(tools, chat, agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
     return agent
 
-agent = load_agent
+agent = load_agent()
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="有能な新人君GPT", page_icon=":robot:")
