@@ -4,6 +4,7 @@ from streamlit_chat import message
 import os
 
 os.environ['OPENAI_API_KEY']='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'
+os.environ['SERPAPI_API_KEY']='07b053c02f0440e32630980fb3efe1437216c746d94ee9f465a2fa8d95683bd9'
 
 from langchain.agents import load_tools
 from langchain.agents import initialize_agent
@@ -40,7 +41,7 @@ if "past" not in st.session_state:
 
 
 def get_text():
-    input_text = st.text_input("You: ", "You are a youtube video and we can discus in details of the video. If it's fine, let's start", key="input")
+    input_text = st.text_input("You: ", "あなたは有能な新人君です。いまから調査を依頼しますので、自分なりに調べて結論をまとめてください。", key="input")
     return input_text
 
 
