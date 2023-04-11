@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_chat import message
 import os
 
-os.environ['OPENAI_API_KEY']='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'
+os.environ['OPENAI_API_KEY']=st.text_input("your openai token here")
 
 from langchain.chains import ConversationChain
 from langchain.llms import OpenAI
@@ -18,8 +18,11 @@ def load_chain():
 chain = load_chain()
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
-st.header("LangChain Demo")
+st.set_page_config(page_title="ChatTube", page_icon=":robot:")
+st.header("ChatTube")
+
+video_url = st.text_input("YouTube url here")
+st.video(video_url)
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
