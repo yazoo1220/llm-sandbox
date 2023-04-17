@@ -25,7 +25,7 @@ def load_chain(urls):
 
 urls = ['https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/url.html']
 
-chain = load_chain()
+chain = load_chain(urls)
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="ChatVEC", page_icon=":robot:")
