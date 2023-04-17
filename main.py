@@ -13,7 +13,6 @@ from langchain.vectorstores import Chroma
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
     llm = OpenAI(temperature=0)
-    urls = ['https://qiita.com/yazoo/items/dfbdefb2bbb23352e743']
     loader = UnstructuredURLLoader(urls=urls)
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=3000, chunk_overlap=0)
