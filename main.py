@@ -25,7 +25,7 @@ def load_chain():
     return chain
 
 
-chain = load_chain()
+qa = load_chain()
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="ChatVEC", page_icon=":robot:")
@@ -46,10 +46,11 @@ def get_text():
 user_input = get_text()
 
 if user_input:
-    output = chain.run(question=user_input,chat_history='')
-
+    chat_history = []
+    result = qa({"question": user_input, "chat_history": chat_history})
     st.session_state.past.append(user_input)
-    st.session_state.generated.append(output)
+    st.session_state.generated.append(result)
+    chat_history.append([user_input, result])
 
 if st.session_state["generated"]:
 
