@@ -20,8 +20,8 @@ def load_chain():
     docs = text_splitter.split_documents(documents)
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
-    retriever = db.as_retriever(search_type="mmr")
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,top_k_docs_for_context=1 )
+    retriever = db.as_retriever()
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever)
     return chain
 
 
@@ -45,9 +45,16 @@ def get_text():
 
 user_input = get_text()
 ask_button = st.button('ask')
+
+def get_chat_history(inputs) -> str:
+    res = []
+    for human, ai in inputs:
+        res.append(f"Human:{human}\nAI:{ai}")
+    return "\n".join(res)
+
 if ask_button:
     chat_history = []
-    result = qa({"question": user_input, "chat_history": chat_history})
+    result = qa({"question": user_input, "chat_history": chat_history}, get_chat_history=get_chat_history)
     st.session_state.past.append(user_input)
     st.session_state.generated.append(result)
     # chat_history.append(user_input)
