@@ -10,7 +10,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-def load_chain():
+def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
     llm = OpenAI(temperature=0)
     urls = ['https://qiita.com/yazoo/items/dfbdefb2bbb23352e743']
@@ -24,8 +24,12 @@ def load_chain():
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever)
     return chain
 
+urls = [st.text_input('url')]
 
-qa = load_chain()
+if urls:
+    qa = load_chain(urls)
+else:
+    pass
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="ChatVEC", page_icon=":robot:")
