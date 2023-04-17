@@ -24,12 +24,6 @@ def load_chain(urls):
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever)
     return chain
 
-urls = [st.text_input('url')]
-
-if urls:
-    qa = load_chain(urls)
-else:
-    pass
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="ChatVEC", page_icon=":robot:")
@@ -40,6 +34,13 @@ if "generated" not in st.session_state:
 
 if "past" not in st.session_state:
     st.session_state["past"] = []
+
+urls = [st.text_input('url')]
+
+if urls:
+    qa = load_chain(urls)
+else:
+    pass
 
 
 def get_text():
