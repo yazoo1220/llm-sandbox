@@ -20,8 +20,8 @@ def load_chain():
     docs = text_splitter.split_documents(documents)
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
-    retriever = db.as_retriever(search_type="mmr",search_kwargs={"k": 1})
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever)
+    retriever = db.as_retriever(search_type="mmr")
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,top_k_docs_for_context=1 )
     return chain
 
 
