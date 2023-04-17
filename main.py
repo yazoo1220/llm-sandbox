@@ -17,7 +17,7 @@ def load_chain(urls):
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.split_documents(documents)
-    embedding = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_type="mmr")
     chain = ConversationalRetrievalChain(llm=llm, retriever=retriever)
