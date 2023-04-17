@@ -10,6 +10,14 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
+
+def get_chat_history(inputs) -> str:
+    res = []
+    for human, ai in inputs:
+        res.append(f"Human:{human}\nAI:{ai}")
+    return "\n".join(res)
+
+
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
     llm = OpenAI(temperature=0)
@@ -20,7 +28,7 @@ def load_chain(urls):
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever)
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
     return chain
 
 
@@ -50,15 +58,9 @@ def get_text():
 user_input = get_text()
 ask_button = st.button('ask')
 
-def get_chat_history(inputs) -> str:
-    res = []
-    for human, ai in inputs:
-        res.append(f"Human:{human}\nAI:{ai}")
-    return "\n".join(res)
-
 if ask_button:
     chat_history = []
-    result = qa({"question": user_input, "chat_history": chat_history})#, get_chat_history=get_chat_history)
+    result = qa({"question": user_input, "chat_history": chat_history})
     st.session_state.past.append(user_input)
     st.session_state.generated.append(result['answer'])
     # chat_history.append(user_input)
