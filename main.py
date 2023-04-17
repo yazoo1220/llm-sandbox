@@ -25,7 +25,7 @@ def load_chain():
     return chain
 
 
-chain = load_chain(urls)
+chain = load_chain()
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="ChatVEC", page_icon=":robot:")
