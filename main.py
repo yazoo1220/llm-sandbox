@@ -17,10 +17,12 @@ def get_chat_history(inputs) -> str:
         res.append(f"Human:{human}\nAI:{ai}")
     return "\n".join(res)
 
+from langchain.callbacks.base import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
-    llm = OpenAI(temperature=0)
+    llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
     loader = UnstructuredURLLoader(urls=urls)
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=3000, chunk_overlap=0)
