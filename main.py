@@ -20,7 +20,7 @@ def load_chain(urls):
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_type="mmr")
-    chain = ConversationalRetrievalChain(llm=llm, retriever=retriever)
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever)
     return chain
 
 urls = ['https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/url.html']
