@@ -3,26 +3,33 @@ import streamlit as st
 from streamlit_chat import message
 import os
 
-os.environ['OPENAI_API_KEY']=st.text_input("your openai token here")
-
-from langchain.chains import ConversationChain
+from langchain.chains import ConversationalRetrievalChain
 from langchain.llms import OpenAI
+from langchain.document_loaders import UnstructuredURLLoader
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Chroma
 
-
-def load_chain():
+def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
     llm = OpenAI(temperature=0)
-    chain = ConversationChain(llm=llm)
+    loader = UnstructuredURLLoader(urls=urls)
+    documents = loader.load()
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    docs = text_splitter.split_documents(documents)
+    embedding = OpenAIEmbeddings()
+    db = Chroma.from_documents(docs, embeddings)
+    retriever = db.as_retriever(search_type="mmr")
+    chain = ConversationalRetrievalChain(llm=llm, retriever=)
     return chain
+
+urls = ['https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/url.html']
 
 chain = load_chain()
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="ChatTube", page_icon=":robot:")
-st.header("ChatTube")
-
-video_url = st.text_input("YouTube url here")
-st.video(video_url)
+st.set_page_config(page_title="ChatVEC", page_icon=":robot:")
+st.header("ChatVEC")
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
@@ -32,7 +39,7 @@ if "past" not in st.session_state:
 
 
 def get_text():
-    input_text = st.text_input("You: ", "Hello, how are you?", key="input")
+    input_text = st.text_input("You: ", "what is this about?", key="input")
     return input_text
 
 
