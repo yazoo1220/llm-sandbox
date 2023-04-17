@@ -10,7 +10,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-def load_chain(urls):
+def load_chain():
     """Logic for loading the chain you want to use should go here."""
     llm = OpenAI(temperature=0)
     urls = ['https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/url.html']
