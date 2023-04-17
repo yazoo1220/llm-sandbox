@@ -13,6 +13,7 @@ from langchain.vectorstores import Chroma
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
     llm = OpenAI(temperature=0)
+    urls = ['https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/url.html']
     loader = UnstructuredURLLoader(urls=urls)
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
@@ -23,7 +24,6 @@ def load_chain(urls):
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever)
     return chain
 
-urls = ['https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/url.html']
 
 chain = load_chain(urls)
 
