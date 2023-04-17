@@ -44,8 +44,8 @@ def get_text():
 
 
 user_input = get_text()
-
-if user_input:
+ask_button = st.button('ask')
+if ask_button:
     chat_history = []
     result = qa({"question": user_input, "chat_history": chat_history})
     st.session_state.past.append(user_input)
