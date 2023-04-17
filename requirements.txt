@@ -2,7 +2,6 @@ langchain
 openai
 streamlit
 streamlit-chat
-google-search-results
 unstructured
 chromadb
 tiktoken
