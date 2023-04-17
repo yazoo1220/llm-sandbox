@@ -50,7 +50,8 @@ if user_input:
     result = qa({"question": user_input, "chat_history": chat_history})
     st.session_state.past.append(user_input)
     st.session_state.generated.append(result)
-    chat_history.append([user_input, result])
+    chat_history.append(user_input)
+    chat_history.append(result)
 
 if st.session_state["generated"]:
 
