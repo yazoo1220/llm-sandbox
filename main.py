@@ -65,7 +65,7 @@ if urls:
 else:
     pass
 
-language = st.select_box('language',['English','日本語','Eesti'])
+language = st.selectbox('language',['English','日本語','Eesti'])
 
 if ask_button:
     chat_history = []
