@@ -38,8 +38,8 @@ def get_text():
     return input_text
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="🔗 ChatURL", page_icon="🔗")
-st.header("🔗 ChatURL")
+st.set_page_config(page_title="🔗 ChatURLs", page_icon="🔗")
+st.header("🔗 ChatURLs")
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
