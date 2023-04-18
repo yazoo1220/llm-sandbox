@@ -4,14 +4,17 @@ from streamlit_chat import message
 import os
 
 from langchain.chains import ConversationalRetrievalChain
-from langchain.chains import LLMChain
+
 from langchain.llms import OpenAI
 from langchain.document_loaders import UnstructuredURLLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
-from langchain.chains.conversational_retrieval.prompts import CONDENSE_QUESTION_PROMPT
-from langchain.chains.question_answering import load_qa_chain
+
+# for question generator
+# from langchain.chains import LLMChain
+# from langchain.chains.conversational_retrieval.prompts import CONDENSE_QUESTION_PROMPT
+# from langchain.chains.question_answering import load_qa_chain
 
 def get_chat_history(inputs) -> str:
     res = []
@@ -25,8 +28,8 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
     llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
-    question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
-    doc_chain = load_qa_chain(llm, chain_type="map_reduce")
+    # question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
+    # doc_chain = load_qa_chain(llm, chain_type="map_reduce")
     loader = UnstructuredURLLoader(urls=urls)
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=3000, chunk_overlap=0)
@@ -34,7 +37,7 @@ def load_chain(urls):
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history,question_generator=question_generator,combine_docs_chain=doc_chain)
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history) #,question_generator=question_generator,combine_docs_chain=doc_chain)
     return chain
 
 def get_text():
