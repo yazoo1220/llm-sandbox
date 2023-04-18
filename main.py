@@ -48,7 +48,7 @@ if "past" not in st.session_state:
     st.session_state["past"] = []
 
 urls = st.text_input('url')
-
+ask_button = null
 if urls:
     qa = load_chain([urls])
     user_input = get_text()
