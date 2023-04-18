@@ -47,10 +47,10 @@ if "generated" not in st.session_state:
 if "past" not in st.session_state:
     st.session_state["past"] = []
 
-urls = [st.text_input('url')]
+urls = st.text_input('url')
 
 if urls:
-    qa = load_chain(urls)
+    qa = load_chain([urls])
     user_input = get_text()
     ask_button = st.button('ask')
 else:
