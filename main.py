@@ -33,6 +33,9 @@ def load_chain(urls):
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
     return chain
 
+def get_text():
+    input_text = st.text_input("You: ", "what is this about?", key="input")
+    return input_text
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="🔗 ChatURL", page_icon="🔗")
@@ -48,17 +51,10 @@ urls = [st.text_input('url')]
 
 if urls:
     qa = load_chain(urls)
+    user_input = get_text()
+    ask_button = st.button('ask')
 else:
     pass
-
-
-def get_text():
-    input_text = st.text_input("You: ", "what is this about?", key="input")
-    return input_text
-
-
-user_input = get_text()
-ask_button = st.button('ask')
 
 if ask_button:
     chat_history = []
