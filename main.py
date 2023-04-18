@@ -9,7 +9,7 @@ from langchain.document_loaders import UnstructuredURLLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
-
+from langchain.chains.conversational_retrieval.prompts import CONDENSE_QUESTION_PROMPT
 
 def get_chat_history(inputs) -> str:
     res = []
@@ -22,7 +22,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
-    llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
+    llm = OpenAI(streaming=True,condense_question_prompt=CONDENSE_QUESTION_PROMPT, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
     loader = UnstructuredURLLoader(urls=urls)
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=3000, chunk_overlap=0)
