@@ -34,8 +34,7 @@ def load_chain(urls):
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history,question_generator=question_generator,
-    combine_docs_chain=doc_chain)
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history,question_generator=question_generator,combine_docs_chain=doc_chain)
     return chain
 
 def get_text():
