@@ -35,8 +35,8 @@ def load_chain(urls):
 
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="ChatVEC", page_icon=":robot:")
-st.header("ChatVEC")
+st.set_page_config(page_title="🔗 ChatURL", page_icon="🔗")
+st.header("🔗 ChatURL")
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
