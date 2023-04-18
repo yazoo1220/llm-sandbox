@@ -67,7 +67,8 @@ else:
 
 if ask_button:
     chat_history = []
-    result = qa({"question": user_input, "chat_history": chat_history})
+    prefix = 'please answer in the language the user is using. User: '
+    result = qa({"question": prefix + user_input, "chat_history": chat_history})
     st.session_state.past.append(user_input)
     st.session_state.generated.append(result['answer'])
     # chat_history.append(user_input)
