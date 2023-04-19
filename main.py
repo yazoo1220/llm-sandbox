@@ -28,7 +28,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
-    llm = ChatOpenAI(temperature=0), streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True)
+    llm = ChatOpenAI(temperature=0, streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True)
     # question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
     # doc_chain = load_qa_chain(llm, chain_type="map_reduce")
     loader = UnstructuredURLLoader(urls=urls)
