@@ -4,7 +4,7 @@ from streamlit_chat import message
 import os
 
 from langchain.chains import ConversationalRetrievalChain
-
+from langchain.memory import ConversationBufferWindowMemory
 from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 from langchain.document_loaders import UnstructuredURLLoader
@@ -42,7 +42,7 @@ def load_chain(urls):
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history) #,question_generator=question_generator,combine_docs_chain=doc_chain)
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history,memory=ConversationBufferWindowMemory(k=10)) #,question_generator=question_generator,combine_docs_chain=doc_chain)
     return chain
 
 def get_text():
