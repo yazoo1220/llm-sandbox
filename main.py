@@ -5,6 +5,7 @@ import os
 
 from langchain.chains import ConversationalRetrievalChain
 
+from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 from langchain.document_loaders import UnstructuredURLLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -27,7 +28,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 def load_chain(urls):
     """Logic for loading the chain you want to use should go here."""
-    llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
+    llm = ChatOpenAI(temperature=0) #, streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True)
     # question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
     # doc_chain = load_qa_chain(llm, chain_type="map_reduce")
     loader = UnstructuredURLLoader(urls=urls)
