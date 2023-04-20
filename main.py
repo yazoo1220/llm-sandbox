@@ -32,7 +32,7 @@ def load_chain(urls):
         model = "gpt-4"
     else:
         model = "gpt-3.5-turbo"
-    llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True), callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True)
+    llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True)
     # question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
     # doc_chain = load_qa_chain(llm, chain_type="map_reduce")
     loader = UnstructuredURLLoader(urls=urls)
