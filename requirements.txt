@@ -5,3 +5,5 @@ streamlit-chat
 unstructured
 chromadb
 tiktoken
+pdfminer
+pexpect
