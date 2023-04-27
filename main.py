@@ -2,6 +2,7 @@
 import streamlit as st
 from streamlit_chat import message
 import os
+import pexpect
 
 from langchain.chains import ConversationalRetrievalChain
 # from langchain.memory import ConversationBufferWindowMemory
