@@ -7,3 +7,4 @@ chromadb
 tiktoken
 pdfminer.six
 pexpect
+pdf2image
